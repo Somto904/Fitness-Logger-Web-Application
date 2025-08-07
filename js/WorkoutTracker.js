@@ -1,4 +1,6 @@
 export default class WorkoutTracker{
+    static LOCAL_STORAGE_KEY = "workout-tracker-entries";
+
     constructor(root) {
         this.root = root;
         this.root.insertAdjacentHTML("afterbegin", WorkoutTracker.html())
@@ -6,6 +8,19 @@ export default class WorkoutTracker{
 
         this.loadEntries();
         this.updateView();
+
+        this.root.querySelector(".tracker__add").addEventListener ("click", () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, "0"); 
+            const day = date.getDate().toString().padStart(2, "0"); 
+
+            this.addEntry({
+                date: `${year}-${month}-${day}`,
+                workout: "walking",
+                duration: 30
+            });
+        });
     }
 
     static html() {
@@ -50,18 +65,18 @@ export default class WorkoutTracker{
                     <span class ="tracker__text">minutes</span>
                 </td>
                 <td>
-                    <button type = "button" class="tracker__button">&times;</button>
+                    <button type = "button" class="tracker__button tracker__delete">&times;</button>
                 </td>
             </tr>
         `;
     }
 
     loadEntries() {
-        this.entries = JSON.parse(localStorage.getItem("workout-tracker-entries") || "[]");
+        this.entries = JSON.parse(localStorage.getItem(WorkoutTracker.LOCAL_STORAGE_KEY) || "[]");
     }
 
     saveEntries() {
-        localStorage.setItem("workout-tracker-entries", JSON.stringify(this.entries));
+        localStorage.setItem(WorkoutTracker.LOCAL_STORAGE_KEY, JSON.stringify(this.entries));
     }
 
     updateView() {
@@ -77,6 +92,23 @@ export default class WorkoutTracker{
             row.querySelector(".tracker__workout").value = data.workout;
             row.querySelector(".tracker__duration").value = data.duration;
 
+            row.querySelector(".tracker__date").addEventListener("change", e => {
+                data.date = e.target.value;
+                this.saveEntries();
+            });
+            row.querySelector(".tracker__workout").addEventListener("change", e => {
+                data.workout = e.target.value;
+                this.saveEntries();
+            });
+            row.querySelector(".tracker__duration").addEventListener("change", e => {
+                data.duration = e.target.value;
+                this.saveEntries();
+            });
+            
+            row.querySelector(".tracker__delete").addEventListener("click", () => {
+                this.deleteEntry(data);
+            
+            });
             tableBody.appendChild(row);
         };
 
@@ -92,4 +124,11 @@ export default class WorkoutTracker{
         this.saveEntries();
         this.updateView();
     }
+
+    deleteEntry(dataToDelete){
+        this.entries = this.entries.filter(data => data !== dataToDelete);
+        this.saveEntries();
+        this.updateView();
+    }
+
 }
