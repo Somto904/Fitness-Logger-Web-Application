@@ -2,7 +2,7 @@ import WorkoutTracker from "./WorkoutTracker.js";
 
 function parseLocalDate(yyyyMmDd) {
     const [year, month, day] = yyyyMmDd.split("-").map(Number);
-    return new Date(year, month - 1, day); // month is 0-based
+    return new Date(year, month - 1, day); 
 }
   
 
@@ -22,7 +22,7 @@ let splitChart = null;
 function renderCharts() {
   const entries = getEntries();
 
-  // Weekly minutes
+  
   const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   const byDay = new Array(7).fill(0);
   for (const e of entries) {
@@ -40,7 +40,7 @@ function renderCharts() {
     });
   }
 
-  // Exercise split
+  
   const byExercise = {};
   for (const e of entries) {
     const key = (e.workout || "Unknown").trim();

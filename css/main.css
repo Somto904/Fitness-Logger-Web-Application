@@ -86,14 +86,46 @@
 }
 
 
-/* Charts layout + smaller doughnut */
+
 .charts { 
     max-width: 900px; 
     margin: 24px auto; 
 }
   
   #exerciseSplit {
-    max-height: 320px;   /* ← shrink the doughnut */
+    max-height: 320px;   
     width: 100%;
 }
+
+/* Search dropdown styling */
+/* Ensure the search wrapper anchors the absolute list */
+.workout-search { position: relative; }
+
+/* Force the dropdown to appear below the input and above the table */
+.workout-results__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 6px 0;
+  max-height: 240px;
+  overflow: auto;
+  display: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.workout-results__list li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.workout-results__list li:hover {
+  background: #f6f6f6;
+}
+
+  
   
