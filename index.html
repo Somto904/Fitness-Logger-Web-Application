@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Tracker</title>
     <link rel="stylesheet" href="css/main.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/main.js" type="module"></script>
 </head>
 <body>
@@ -51,6 +52,10 @@
             </tbody>
         </table> -->
     </div>
+    <section class="charts" style="max-width: 900px; margin: 24px auto;">
+        <canvas id="weeklyMinutes"></canvas>
+        <canvas id="exerciseSplit" style="margin-top:24px;"></canvas>
+    </section>
     
 </body>
 </html>

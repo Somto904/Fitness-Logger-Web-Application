@@ -1,3 +1,4 @@
+
 export default class WorkoutTracker{
     static LOCAL_STORAGE_KEY = "workout-tracker-entries";
 
@@ -77,6 +78,7 @@ export default class WorkoutTracker{
 
     saveEntries() {
         localStorage.setItem(WorkoutTracker.LOCAL_STORAGE_KEY, JSON.stringify(this.entries));
+        window.dispatchEvent(new CustomEvent("entries-changed"));
     }
 
     updateView() {
@@ -95,14 +97,17 @@ export default class WorkoutTracker{
             row.querySelector(".tracker__date").addEventListener("change", e => {
                 data.date = e.target.value;
                 this.saveEntries();
+                
             });
             row.querySelector(".tracker__workout").addEventListener("change", e => {
                 data.workout = e.target.value;
                 this.saveEntries();
+                
             });
             row.querySelector(".tracker__duration").addEventListener("change", e => {
                 data.duration = e.target.value;
                 this.saveEntries();
+                
             });
             
             row.querySelector(".tracker__delete").addEventListener("click", () => {
@@ -117,6 +122,7 @@ export default class WorkoutTracker{
         });
 
         this.entries.forEach(data => addRow(data));
+
     }
 
     addEntry(data){
@@ -130,5 +136,6 @@ export default class WorkoutTracker{
         this.saveEntries();
         this.updateView();
     }
+
 
 }

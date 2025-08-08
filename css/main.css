@@ -84,3 +84,16 @@
 .tracker__add:hover {
     background: rgba(0,0,0,0.1);
 }
+
+
+/* Charts layout + smaller doughnut */
+.charts { 
+    max-width: 900px; 
+    margin: 24px auto; 
+}
+  
+  #exerciseSplit {
+    max-height: 320px;   /* ← shrink the doughnut */
+    width: 100%;
+}
+  
